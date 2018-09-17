@@ -1,0 +1,32 @@
+<div class="wrapper">
+  <mat-card>
+    <form [formGroup]="form" novalidate (submit)="submit()">
+      <mat-form-field>
+        <input 
+          type="text" 
+          matInput 
+          formControlName="task" 
+          placeholder="Название задачи">
+      </mat-form-field>
+      <button mat-button color="primary">Добавить</button>
+    </form>
+  </mat-card>
+
+  <ng-container *ngFor="let task of tasks; let i = index">
+    <mat-card>
+      <span>{{ task }}</span>
+      <button mat-button mat-icon-button (click)="deleteTask(i)">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </mat-card>
+  </ng-container>
+
+  <mat-card>
+    <span>{{tasks.length}} items left</span>
+    <span>
+      <mat-radio-group [(ngModel)]="activeFilter">
+        <mat-radio-button *ngFor="let filter of filters" [value]="filter">{{filter}}</mat-radio-button>
+      </mat-radio-group>
+    </span> 
+  </mat-card>
+</div>
