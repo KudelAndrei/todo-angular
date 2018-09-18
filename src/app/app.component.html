@@ -1,6 +1,6 @@
 <div class="wrapper">
-  <mat-card>
-    <form [formGroup]="form" novalidate (submit)="submit()">
+  <mat-card color="primary">
+    <form [formGroup]="form" novalidate (submit)="submit()" class="form">
       <mat-form-field>
         <input 
           type="text" 
@@ -13,20 +13,21 @@
   </mat-card>
 
   <ng-container *ngFor="let task of tasks; let i = index">
-    <mat-card>
-      <span>{{ task }}</span>
-      <button mat-button mat-icon-button (click)="deleteTask(i)">
+    <mat-card class="form-item" *ngIf="activeFilter.checked === null || activeFilter.checked === task.checked">
+      <mat-checkbox [(ngModel)]="task.checked"></mat-checkbox>
+      <span class="form-item__text">{{ task.title }}</span>
+      <button class="form-item__bel" mat-button mat-icon-button (click)="deleteTask(i)">
         <mat-icon>clear</mat-icon>
       </button>
     </mat-card>
   </ng-container>
-
+  {{changeFilter()}}
   <mat-card>
-    <span>{{tasks.length}} items left</span>
-    <span>
-      <mat-radio-group [(ngModel)]="activeFilter">
-        <mat-radio-button *ngFor="let filter of filters" [value]="filter">{{filter}}</mat-radio-button>
-      </mat-radio-group>
-    </span> 
+    <mat-radio-group class="radio-group" [(ngModel)]="activeFilter" (change)="changeFilter()">
+      <mat-radio-button class="radio-button" *ngFor="let filter of filters" [value]="filter">
+        {{filter.name}}
+      </mat-radio-button>
+    </mat-radio-group>
+    <div class="selected-value">Your favorite filter ({{countFilter}}) is: {{activeFilter.name}}</div>    
   </mat-card>
 </div>

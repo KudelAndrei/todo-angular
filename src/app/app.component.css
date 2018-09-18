@@ -1,0 +1,27 @@
+.wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.form, .radio-group, .form-item {
+  display: flex;
+  align-items: center;
+}
+
+.form .mat-form-field {
+  flex-grow: 1;
+}
+
+.form-item .form-item__bel {
+  margin-left: auto;
+}
+.form-item .form-item__text {
+  margin-left: 20px;
+}
+
+.radio-group {
+  margin-bottom: 20px;
+}
+.radio-group .radio-button {
+  margin-right: 20px;
+}

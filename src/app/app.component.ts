@@ -7,25 +7,37 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public tasks:string[] = [];
-  public filters:string[] = ['all', 'active', 'complited'];
-  public activeFilter:string = 'all';
+  public tasks:Array<any> = [];
+  public countFilter:any = 0;
+  public filters:Array<any> = [
+    { name: 'all', checked: null },
+    { name: 'active', checked: false },
+    { name: 'complited', checked: true }
+  ];
+  public activeFilter:any = this.filters[0];
 
   public form: FormGroup = new FormGroup({
     task: new FormControl()
   });
 
   submit() {
-    this.tasks.push(this.form.value.task);
+    this.tasks.push({
+      title: this.form.value.task,
+      checked: false,
+    });
     this.form.reset();
   }
 
-  deleteTask(index: number) {
+  deleteTask(index:number) {
     this.tasks.splice(index, 1);
   }
 
-  changeFilter(filter:string){
-    this.activeFilter = filter;
+  changeFilter(){
+    this.countFilter = this.tasks.length > 0 ? 
+      this.tasks.filter(task => task.checked === this.activeFilter.checked || this.activeFilter.checked === null) ?
+      this.tasks.filter(task => task.checked === this.activeFilter.checked || this.activeFilter.checked === null).length
+      : 0
+      : 0;
   }
 
 }
